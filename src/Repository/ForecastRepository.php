@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\City;
 use App\Entity\Forecast;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,6 +21,20 @@ class ForecastRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Forecast::class);
     }
+
+    public function findByLocation(City $city)
+    {
+        $qb = $this->createQueryBuilder('m');
+        $qb->where('m.city = :city')
+            ->setParameter('city', $city)
+            ->andWhere('m.date > :now')
+            ->setParameter('now', date('Y-m-d'));
+
+        $query = $qb->getQuery();
+        $result = $query->getResult();
+        return $result;
+    }
+
 
 //    /**
 //     * @return Forecast[] Returns an array of Forecast objects
