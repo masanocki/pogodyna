@@ -28,9 +28,8 @@ class WeatherCountrycityCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addArgument('code', InputArgument::OPTIONAL, 'Argument description')
-            ->addArgument('name', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+            ->addArgument('code', InputArgument::REQUIRED, 'Argument description')
+            ->addArgument('name', InputArgument::REQUIRED, 'Argument description')
         ;
     }
 
